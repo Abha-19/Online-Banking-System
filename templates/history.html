@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}History | {{ app_name }}{% endblock %}
+
+{% block content %}
+<section class="glass-panel p-4 p-lg-5 mb-4">
+    <div class="row g-4 align-items-center">
+        <div class="col-lg-8">
+            <span class="eyebrow"><i class="bi bi-clock-history"></i> Transaction Archive</span>
+            <h1 class="page-title mt-3">Search and review your account history</h1>
+            <p class="page-subtitle">Track deposits, withdrawals, transfers, and incoming payments from one searchable record.</p>
+        </div>
+        <div class="col-lg-4">
+            <div class="sidebar-panel">
+                <div class="small-list">
+                    <div class="small-list-item">
+                        <span>Total credits</span>
+                        <strong>{{ currency(metrics.credits) }}</strong>
+                    </div>
+                    <div class="small-list-item">
+                        <span>Total debits</span>
+                        <strong>{{ currency(metrics.debits) }}</strong>
+                    </div>
+                    <div class="small-list-item">
+                        <span>Entries found</span>
+                        <strong>{{ transactions|length }}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="table-panel">
+    <div class="search-row mb-4">
+        <form method="GET" class="d-flex gap-3 flex-grow-1 flex-wrap">
+            <input type="text" name="search" value="{{ search_query }}" class="form-control" placeholder="Search by action, detail, or date">
+            <button type="submit" class="btn-bank">Search</button>
+            <a href="{{ url_for('history') }}" class="btn-bank-outline">Clear</a>
+        </form>
+        <a href="{{ url_for('download_statement') }}" class="btn-bank-soft">Download Statement</a>
+    </div>
+
+    {% if transactions %}
+        <div class="table-responsive">
+            <table class="table table-bank">
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Details</th>
+                        <th>Amount</th>
+                        <th>Date and Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                        <tr>
+                            <td>
+                                <span class="timeline-badge {% if transaction.action in ['Deposit', 'Received'] %}badge-credit{% elif transaction.action in ['Withdraw', 'Transfer'] %}badge-debit{% else %}badge-neutral{% endif %}">
+                                    {{ transaction.action }}
+                                </span>
+                            </td>
+                            <td>{{ transaction.details }}</td>
+                            <td>{{ currency(transaction.amount) }}</td>
+                            <td>{{ transaction.created_at }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <h3 class="section-title">No matching transactions</h3>
+            <p class="mb-0">Try a different search term or clear the filter to see your full statement history.</p>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

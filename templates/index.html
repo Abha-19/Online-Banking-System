@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}{{ app_name }} | Digital Banking{% endblock %}
+
+{% block content %}
+<section class="hero-panel">
+    <div class="row align-items-center g-5">
+        <div class="col-lg-7">
+            <span class="eyebrow"><i class="bi bi-shield-lock"></i> Trusted Digital Banking</span>
+            <h1 class="display-title">Professional online banking with a cleaner, smarter experience.</h1>
+            <p class="hero-copy">
+                Open an account, manage daily money movement, review your history, and monitor account activity from a polished customer dashboard built for clarity and confidence.
+            </p>
+            <div class="hero-actions mt-4">
+                <a href="{{ url_for('register') }}" class="btn-bank">Open an Account <i class="bi bi-arrow-right"></i></a>
+                <a href="{{ url_for('login') }}" class="btn-bank-outline">Access Dashboard</a>
+            </div>
+            <div class="hero-stats mt-4">
+                <div class="hero-stat">
+                    <div class="label">Customers</div>
+                    <div class="value">{{ metrics.total_customers }}</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="label">Transactions Logged</div>
+                    <div class="value">{{ metrics.total_transactions }}</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="label">Managed Balance</div>
+                    <div class="value">{{ currency(metrics.total_balances) }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="hero-visual">
+                <div class="status-chip"><i class="bi bi-stars"></i> Live customer dashboard</div>
+                <div class="hero-grid">
+                    <div class="floating-card">
+                        <div class="mini-label">Fast Transfers</div>
+                        <div class="mini-value">Instant internal payments</div>
+                    </div>
+                    <div class="floating-card">
+                        <div class="mini-label">Visibility</div>
+                        <div class="mini-value">Searchable transaction history</div>
+                    </div>
+                    <div class="floating-card">
+                        <div class="mini-label">Security</div>
+                        <div class="mini-value">Hashed passwords and sessions</div>
+                    </div>
+                    <div class="floating-card">
+                        <div class="mini-label">Admin Control</div>
+                        <div class="mini-value">Live portfolio overview</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-spacer">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="icon-wrap"><i class="bi bi-columns-gap"></i></div>
+                <h3>Executive-style dashboard</h3>
+                <p>Important balances, net cash flow, and recent transactions surface immediately so customers do not have to hunt for basic information.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="icon-wrap"><i class="bi bi-arrow-left-right"></i></div>
+                <h3>Smoother money movement</h3>
+                <p>Deposit, withdraw, and transfer flows are simplified with clearer validation, better language, and more helpful transaction details.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="icon-wrap"><i class="bi bi-bar-chart-line"></i></div>
+                <h3>Operational oversight</h3>
+                <p>The admin area now highlights customer totals, portfolio balance, and the latest activity in a cleaner command center layout.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

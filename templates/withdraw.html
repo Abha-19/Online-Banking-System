@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Withdraw | {{ app_name }}{% endblock %}
+
+{% block content %}
+<section class="row g-4">
+    <div class="col-lg-7">
+        <div class="glass-panel p-4 p-lg-5">
+            <span class="eyebrow"><i class="bi bi-dash-circle"></i> Cash Out</span>
+            <h1 class="page-title mt-3">Withdraw money</h1>
+            <p class="page-subtitle">Withdraw from your available balance with automatic validation to avoid overdrawing your account.</p>
+            <form method="POST" class="mt-4">
+                <div class="mb-3">
+                    <label class="form-label">Amount</label>
+                    <input type="number" min="1" name="amount" class="form-control" placeholder="Enter withdrawal amount" required>
+                </div>
+                <div class="quick-actions mt-4">
+                    <button type="submit" class="btn-bank">Process Withdrawal</button>
+                    <a href="{{ url_for('dashboard') }}" class="btn-bank-outline">Back to Dashboard</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="sidebar-panel h-100">
+            <h3>Before you withdraw</h3>
+            <div class="small-list mt-3">
+                <div class="small-list-item">
+                    <span>Balance check</span>
+                    <strong>Required</strong>
+                </div>
+                <div class="small-list-item">
+                    <span>Transaction note</span>
+                    <strong>Auto-saved</strong>
+                </div>
+                <div class="small-list-item">
+                    <span>Best practice</span>
+                    <strong>Keep a reserve</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

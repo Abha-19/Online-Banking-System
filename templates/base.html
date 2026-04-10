@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ app_name }}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="app-shell">
+        <nav class="navbar navbar-expand-lg navbar-bank">
+            <div class="container container-compact">
+                <a class="navbar-brand" href="{{ url_for('home') }}">
+                    <span class="brand-mark"><i class="bi bi-bank2"></i></span>
+                    <span>{{ app_name }}</span>
+                </a>
+                <button class="navbar-toggler btn btn-bank-outline" type="button" data-bs-toggle="collapse" data-bs-target="#bankNav" aria-controls="bankNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="bankNav">
+                    <div class="navbar-text mt-3 mt-lg-0 ms-lg-4">
+                        {% if current_user %}
+                            {% if is_admin_session %}
+                                Operations command center
+                            {% else %}
+                                Welcome back, {{ current_user.full_name }}
+                            {% endif %}
+                        {% else %}
+                            Premium digital banking for modern customers
+                        {% endif %}
+                    </div>
+                    <div class="nav-bank-links mt-3 mt-lg-0">
+                        {% if current_user and is_admin_session %}
+                            <a class="nav-bank-link {% if request.endpoint == 'admin_panel' %}active{% endif %}" href="{{ url_for('admin_panel') }}">Admin</a>
+                            <a class="nav-bank-link logout-link" href="{{ url_for('logout') }}">Logout</a>
+                        {% elif current_user %}
+                            <a class="nav-bank-link {% if request.endpoint == 'dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}">Dashboard</a>
+                            <a class="nav-bank-link {% if request.endpoint == 'profile' %}active{% endif %}" href="{{ url_for('profile') }}">Profile</a>
+                            <a class="nav-bank-link {% if request.endpoint == 'history' %}active{% endif %}" href="{{ url_for('history') }}">History</a>
+                            <a class="nav-bank-link logout-link" href="{{ url_for('logout') }}">Logout</a>
+                        {% else %}
+                            <a class="nav-bank-link {% if request.endpoint == 'home' %}active{% endif %}" href="{{ url_for('home') }}">Home</a>
+                            <a class="nav-bank-link {% if request.endpoint == 'login' %}active{% endif %}" href="{{ url_for('login') }}">Login</a>
+                            <a class="nav-bank-link {% if request.endpoint == 'register' %}active{% endif %}" href="{{ url_for('register') }}">Register</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="page-wrap">
+            <div class="container container-compact">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div class="mb-4">
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} mb-3">{{ message }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+
+        <footer class="footer-bank">
+            <div class="container container-compact d-flex justify-content-between flex-wrap gap-2">
+                <span>{{ app_name }}. Secure banking dashboard experience.</span>
+                <span>&copy; {{ current_year }} {{ app_name }}</span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Profile | {{ app_name }}{% endblock %}
+
+{% block content %}
+<section class="row g-4">
+    <div class="col-lg-8">
+        <div class="glass-panel p-4 p-lg-5 h-100">
+            <span class="eyebrow"><i class="bi bi-person-badge"></i> Customer Profile</span>
+            <h1 class="page-title mt-3">Account details and security</h1>
+            <p class="page-subtitle">Review the main identity details tied to your account and keep your login credentials up to date.</p>
+
+            <div class="row g-4 mt-2">
+                <div class="col-md-6">
+                    <div class="metric-card h-100">
+                        <div class="label">Full Name</div>
+                        <div class="value">{{ user.full_name }}</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="metric-card h-100">
+                        <div class="label">Username</div>
+                        <div class="value">@{{ user.username }}</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="metric-card h-100">
+                        <div class="label">Account Number</div>
+                        <div class="value">{{ user.account_number }}</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="metric-card h-100">
+                        <div class="label">Current Balance</div>
+                        <div class="value">{{ currency(user.balance) }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-actions mt-4">
+                <a href="{{ url_for('change_password') }}" class="btn-bank"><i class="bi bi-shield-lock"></i> Change Password</a>
+                <a href="{{ url_for('download_statement') }}" class="btn-bank-outline"><i class="bi bi-file-earmark-arrow-down"></i> Download Statement</a>
+                <a href="{{ url_for('dashboard') }}" class="btn-bank-soft"><i class="bi bi-arrow-left"></i> Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="sidebar-panel mb-4">
+            <h3>Account insights</h3>
+            <div class="small-list mt-3">
+                <div class="small-list-item">
+                    <span>Total credits</span>
+                    <strong>{{ currency(metrics.credits) }}</strong>
+                </div>
+                <div class="small-list-item">
+                    <span>Total debits</span>
+                    <strong>{{ currency(metrics.debits) }}</strong>
+                </div>
+                <div class="small-list-item">
+                    <span>Transactions</span>
+                    <strong>{{ metrics.transaction_count }}</strong>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-panel danger-panel">
+            <h3>Danger zone</h3>
+            <p>Deleting your account permanently removes your profile and every transaction associated with it.</p>
+            <form action="{{ url_for('delete_account') }}" method="POST" onsubmit="return confirm('Are you sure you want to permanently delete your account?');">
+                <button type="submit" class="btn-bank-outline w-100">Delete Account</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

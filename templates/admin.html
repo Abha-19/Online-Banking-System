@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}Admin | {{ app_name }}{% endblock %}
+
+{% block content %}
+<section class="glass-panel p-4 p-lg-5 mb-4">
+    <span class="eyebrow"><i class="bi bi-activity"></i> Operations Dashboard</span>
+    <h1 class="page-title mt-3">Admin command center</h1>
+    <p class="page-subtitle">Monitor customer growth, total balances, and the most recent activity across the entire banking platform.</p>
+</section>
+
+<section class="mb-4">
+    <div class="row g-4">
+        <div class="col-md-6 col-xl-3">
+            <div class="metric-card">
+                <div class="icon-wrap"><i class="bi bi-people"></i></div>
+                <div class="label">Customers</div>
+                <div class="value">{{ metrics.total_customers }}</div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="metric-card">
+                <div class="icon-wrap"><i class="bi bi-bank"></i></div>
+                <div class="label">Managed Balance</div>
+                <div class="value">{{ currency(metrics.total_balances) }}</div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="metric-card">
+                <div class="icon-wrap"><i class="bi bi-receipt"></i></div>
+                <div class="label">Total Transactions</div>
+                <div class="value">{{ metrics.total_transactions }}</div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="metric-card">
+                <div class="icon-wrap"><i class="bi bi-calendar-check"></i></div>
+                <div class="label">Activity Today</div>
+                <div class="value">{{ metrics.active_today }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="row g-4">
+    <div class="col-lg-7">
+        <div class="table-panel h-100">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+                <div>
+                    <h2 class="section-title mb-1">Customer accounts</h2>
+                    <p class="mb-0">Sorted by available balance for faster review.</p>
+                </div>
+            </div>
+            {% if users %}
+                <div class="table-responsive">
+                    <table class="table table-bank">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Customer</th>
+                                <th>Username</th>
+                                <th>Account Number</th>
+                                <th>Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                                <tr>
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.full_name }}</td>
+                                    <td>@{{ user.username }}</td>
+                                    <td>{{ user.account_number }}</td>
+                                    <td>{{ currency(user.balance) }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <h3 class="section-title">No customers yet</h3>
+                    <p class="mb-0">Customer accounts will appear here as soon as users register.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="table-panel h-100">
+            <h2 class="section-title mb-1">Latest activity</h2>
+            <p>Recent transactions across all customer accounts.</p>
+            {% if transactions %}
+                <div class="timeline-list mt-4">
+                    {% for transaction in transactions %}
+                        <div class="timeline-item">
+                            <div class="meta">
+                                <span class="timeline-badge {% if transaction.action in ['Deposit', 'Received'] %}badge-credit{% elif transaction.action in ['Withdraw', 'Transfer'] %}badge-debit{% else %}badge-neutral{% endif %}">
+                                    {{ transaction.action }}
+                                </span>
+                                <h4 class="mb-0">{{ transaction.full_name }}</h4>
+                                <p class="mb-0">@{{ transaction.username }} | {{ transaction.details }}</p>
+                                <p class="mb-0">{{ transaction.created_at }}</p>
+                            </div>
+                            <div class="amount">{{ currency(transaction.amount) }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state mt-4">
+                    <h3 class="section-title">No transactions yet</h3>
+                    <p class="mb-0">Platform activity will appear here when customers begin using the app.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

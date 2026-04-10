@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Transfer | {{ app_name }}{% endblock %}
+
+{% block content %}
+<section class="row g-4">
+    <div class="col-lg-7">
+        <div class="glass-panel p-4 p-lg-5">
+            <span class="eyebrow"><i class="bi bi-send-check"></i> Internal Transfer</span>
+            <h1 class="page-title mt-3">Transfer money</h1>
+            <p class="page-subtitle">Send funds securely to another customer account using their username.</p>
+            <form method="POST" class="mt-4">
+                <div class="mb-3">
+                    <label class="form-label">Recipient username</label>
+                    <input type="text" name="recipient" class="form-control" placeholder="Enter recipient username" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Amount</label>
+                    <input type="number" min="1" name="amount" class="form-control" placeholder="Enter transfer amount" required>
+                </div>
+                <div class="quick-actions mt-4">
+                    <button type="submit" class="btn-bank">Send Transfer</button>
+                    <a href="{{ url_for('dashboard') }}" class="btn-bank-outline">Back to Dashboard</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="sidebar-panel h-100">
+            <h3>Transfer rules</h3>
+            <div class="small-list mt-3">
+                <div class="small-list-item">
+                    <span>Recipient type</span>
+                    <strong>Customer username</strong>
+                </div>
+                <div class="small-list-item">
+                    <span>Self transfer</span>
+                    <strong>Not allowed</strong>
+                </div>
+                <div class="small-list-item">
+                    <span>History update</span>
+                    <strong>Recorded for both accounts</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
