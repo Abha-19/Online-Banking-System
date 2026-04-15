@@ -7,8 +7,8 @@
     <div class="row g-4 align-items-center">
         <div class="col-lg-8">
             <span class="eyebrow"><i class="bi bi-clock-history"></i> Transaction Archive</span>
-            <h1 class="page-title mt-3">Search and review your account history</h1>
-            <p class="page-subtitle">Track deposits, withdrawals, transfers, and incoming payments from one searchable record.</p>
+            <h1 class="page-title mt-3">Search and review your full account history</h1>
+            <p class="page-subtitle">Track deposits, withdrawals, transfers, and incoming payments from a professional searchable ledger built for quick review.</p>
         </div>
         <div class="col-lg-4">
             <div class="sidebar-panel">
@@ -40,6 +40,7 @@
         </form>
         <a href="{{ url_for('download_statement') }}" class="btn-bank-soft">Download Statement</a>
     </div>
+    <div class="section-note mb-4">Use search to filter transaction records by action type, transaction detail, or stored date text.</div>
 
     {% if transactions %}
         <div class="table-responsive">

@@ -7,8 +7,8 @@
     <div class="col-lg-8">
         <div class="glass-panel p-4 p-lg-5 h-100">
             <span class="eyebrow"><i class="bi bi-person-badge"></i> Customer Profile</span>
-            <h1 class="page-title mt-3">Account details and security</h1>
-            <p class="page-subtitle">Review the main identity details tied to your account and keep your login credentials up to date.</p>
+            <h1 class="page-title mt-3">Account identity, balance, and security controls</h1>
+            <p class="page-subtitle">Keep your personal account information organized in one professional workspace with fast access to statements and password updates.</p>
 
             <div class="row g-4 mt-2">
                 <div class="col-md-6">
@@ -47,6 +47,7 @@
     <div class="col-lg-4">
         <div class="sidebar-panel mb-4">
             <h3>Account insights</h3>
+            <p class="mb-0">A quick operational summary of how money has moved through this account.</p>
             <div class="small-list mt-3">
                 <div class="small-list-item">
                     <span>Total credits</span>
@@ -64,7 +65,7 @@
         </div>
         <div class="sidebar-panel danger-panel">
             <h3>Danger zone</h3>
-            <p>Deleting your account permanently removes your profile and every transaction associated with it.</p>
+            <p>Deleting your account permanently removes your profile, balance records, and every stored transaction associated with it.</p>
             <form action="{{ url_for('delete_account') }}" method="POST" onsubmit="return confirm('Are you sure you want to permanently delete your account?');">
                 <button type="submit" class="btn-bank-outline w-100">Delete Account</button>
             </form>

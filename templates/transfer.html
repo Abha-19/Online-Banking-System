@@ -5,10 +5,24 @@
 {% block content %}
 <section class="row g-4">
     <div class="col-lg-7">
-        <div class="glass-panel p-4 p-lg-5">
+        <div class="glass-panel p-4 p-lg-5 professional-form-panel">
             <span class="eyebrow"><i class="bi bi-send-check"></i> Internal Transfer</span>
-            <h1 class="page-title mt-3">Transfer money</h1>
-            <p class="page-subtitle">Send funds securely to another customer account using their username.</p>
+            <h1 class="page-title mt-3">Transfer funds with clearer recipient control</h1>
+            <p class="page-subtitle">Move money securely to another customer account using a guided internal transfer form with automatic transaction logging.</p>
+            <div class="form-intro-strip mt-4">
+                <div class="form-intro-item">
+                    <span>Recipient</span>
+                    <strong>Username based</strong>
+                </div>
+                <div class="form-intro-item">
+                    <span>Security</span>
+                    <strong>Internal transfer only</strong>
+                </div>
+                <div class="form-intro-item">
+                    <span>Records</span>
+                    <strong>Both sides updated</strong>
+                </div>
+            </div>
             <form method="POST" class="mt-4">
                 <div class="mb-3">
                     <label class="form-label">Recipient username</label>
@@ -26,8 +40,9 @@
         </div>
     </div>
     <div class="col-lg-5">
-        <div class="sidebar-panel h-100">
+        <div class="sidebar-panel h-100 professional-side-panel">
             <h3>Transfer rules</h3>
+            <p class="mb-0">Use these operating rules to keep internal payments accurate and properly recorded.</p>
             <div class="small-list mt-3">
                 <div class="small-list-item">
                     <span>Recipient type</span>
